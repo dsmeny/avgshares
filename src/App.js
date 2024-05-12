@@ -27,18 +27,23 @@ function Results({ averages }) {
 
 function App() {
   const [stockEntries, setStockEntries] = useState([]);
+  const [isDisabled, setIsDisabled] = useState(true);
   const averages = calcAverages(calcStockTransactions(stockEntries));
 
   function formSubmitHandler(formFields) {
     setStockEntries(formFields);
+
+    if (isDisabled) {
+      setIsDisabled((prev) => !prev);
+    }
   }
 
   return (
     <div className="container">
       <Form formSubmitHandler={formSubmitHandler} />
-      {stockEntries && stockEntries.length > 0 && (
-        <Results averages={averages} />
-      )}
+      {!isDisabled &&
+        stockEntries[0].count > 0 &&
+        stockEntries[0].price > 0 && <Results averages={averages} />}
     </div>
   );
 }

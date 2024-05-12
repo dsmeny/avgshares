@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react";
 import { FORM_FIELD_ROWS } from "../enums.js";
 import FormField from "./FormField.js";
 
 function Form({ formSubmitHandler }) {
+  const [refresh, setRefresh] = useState(false);
+
   function onFormSubmit(e) {
     e.preventDefault();
 
@@ -27,6 +30,12 @@ function Form({ formSubmitHandler }) {
     formSubmitHandler(entries);
   }
 
+  useEffect(() => {
+    if (refresh) {
+      window.location.reload();
+    }
+  }, [refresh]);
+
   return (
     <form onSubmit={onFormSubmit}>
       <div className="form_headers">
@@ -39,7 +48,16 @@ function Form({ formSubmitHandler }) {
           <FormField key={i} index={i + 1} />
         ))}
 
-      <input type="submit" value="Calculate" />
+      <div className="bts">
+        <input type="submit" value="Calculate" />
+        <button
+          onClick={() => {
+            setRefresh(true);
+          }}
+        >
+          reset
+        </button>
+      </div>
     </form>
   );
 }

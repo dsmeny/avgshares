@@ -1,8 +1,13 @@
-/* Reset styles for number input in Firefox */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
   margin: 0;
-  line-height: 20px;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 body {
@@ -14,16 +19,12 @@ body {
 .container {
   background-color: #fcfcfc;
   border-radius: 10px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  translate: -50% -50%;
   width: 100%;
-  max-width: 980px;
+  max-width: 680px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 10px;
+  padding: 20px;
 }
 
 .results_container {
@@ -78,4 +79,16 @@ input[type="submit"]:active {
   background-color: #426d9e;
   box-shadow: rgba(0, 0, 0, 0.18) 0px 3px 8px;
   transform: translateY(4px);
+}
+
+.bts {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bts button {
+  font-size: medium;
+  border: none;
+  background-color: transparent;
 }
