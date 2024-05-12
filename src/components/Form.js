@@ -1,34 +1,11 @@
 import { useEffect, useState } from "react";
 import { FORM_FIELD_ROWS } from "../enums.js";
+import { onFormSubmit } from "../utils.js";
 import FormField from "./FormField.js";
+import FormHeaders from "./FormHeaders.js";
 
 function Form({ formSubmitHandler }) {
   const [refresh, setRefresh] = useState(false);
-
-  function onFormSubmit(e) {
-    e.preventDefault();
-
-    const entries = [];
-
-    const elements = Array.from(
-      e.target.elements,
-      (element) => element && element.value
-    ).filter((el) => el);
-
-    for (let i = 0; i < elements.length; i += 2) {
-      const shares = elements[i];
-      const price = elements[i + 1];
-
-      if (shares && price) {
-        entries.push({
-          price: parseFloat(price),
-          count: parseFloat(shares),
-        });
-      }
-    }
-
-    formSubmitHandler(entries);
-  }
 
   useEffect(() => {
     if (refresh) {
@@ -37,11 +14,12 @@ function Form({ formSubmitHandler }) {
   }, [refresh]);
 
   return (
-    <form onSubmit={onFormSubmit}>
-      <div className="form_headers">
-        <h3>Shares Bought</h3>
-        <h3>Purchase Price</h3>
-      </div>
+    <form
+      onSubmit={(e) => {
+        onFormSubmit(e, formSubmitHandler);
+      }}
+    >
+      <FormHeaders />
       {Array(FORM_FIELD_ROWS)
         .fill()
         .map((_, i) => (
