@@ -34,6 +34,10 @@ table {
   border-spacing: 0px;
 }
 
+table tr:nth-child(even) {
+  background-color: #5b5b5b08;
+}
+
 .container {
   background-color: #fcfcfc;
   border-radius: 10px;
