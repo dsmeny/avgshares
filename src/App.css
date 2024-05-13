@@ -10,10 +10,28 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+:root {
+  --title-color: #ff9800;
+  --header-color: #5b5b5b;
+}
+
 body {
   font-family: "Roboto", sans-serif;
   font-weight: 100;
   font-style: normal;
+}
+
+h3,
+th {
+  color: var(--header-color);
+}
+
+td > strong {
+  color: var(--header-color);
+}
+
+table {
+  border-spacing: 0px;
 }
 
 .container {
@@ -27,13 +45,50 @@ body {
   padding: 20px;
 }
 
+.results_positive {
+  color: green;
+  margin-right: 10px;
+}
+
+.results_negative {
+  color: red;
+  margin-left: 10px;
+}
+
+.results_table {
+  width: 100%;
+}
+
+.results_table_headers {
+  text-align: left;
+}
+
 .results_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.results_totals,
+.results_percentages_container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.results_percentages {
+  display: flex;
+  flex-direction: column;
+}
+
+.results_percentages h3 {
+  color: var(--title-color) !important;
+}
+
+.results_percentages_container_cols {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  margin-top: 2rem;
-  padding: 10px;
 }
 
 .formContainer {
@@ -48,6 +103,11 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  color: var(--title-color);
+}
+
+.form_headers h3 {
+  color: var(--title-color);
 }
 
 form {
@@ -65,18 +125,18 @@ input[type="submit"] {
   cursor: pointer;
   outline: none;
   color: #fff;
-  background-color: #0855ad;
+  background-color: var(--title-color);
   border: none;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 input[type="submit"]:hover {
-  background-color: #3368a4;
+  background-color: #ff9900da;
 }
 
 input[type="submit"]:active {
-  background-color: #426d9e;
+  background-color: #ff9900b7;
   box-shadow: rgba(0, 0, 0, 0.18) 0px 3px 8px;
   transform: translateY(4px);
 }
