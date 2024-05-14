@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Form from "./components/Form";
 import Results from "./components/Results";
 import { calcStockTransactions, calcAverages } from "./utils.js";
@@ -7,17 +7,36 @@ import "./App.css";
 function App() {
   const [stockEntries, setStockEntries] = useState([]);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [results, setResults] = useState(null);
+
   const averages = calcAverages(calcStockTransactions(stockEntries));
-  const results = {
-    three: {
-      sharePrice: {
-        positive:
-          averages.averageCostPerShare * 0.03 + averages.averageCostPerShare,
-        negative:
-          averages.averageCostPerShare - averages.averageCostPerShare * 0.03,
-      },
-    },
-  };
+
+  useMemo(() => {
+    setResults((prev) => {
+      return {
+        ...prev,
+        three: {
+          sharePrice: {
+            positive:
+              averages.averageCostPerShare * 0.03 +
+              averages.averageCostPerShare,
+            negative:
+              averages.averageCostPerShare -
+              averages.averageCostPerShare * 0.03,
+          },
+          costBasis: {
+            positive: averages.totalShares * results.three.sharePrice.positive,
+            negative: averages.totalShares * results.three.sharePrice.negative,
+          },
+        },
+      };
+    });
+  }, [
+    averages.averageCostPerShare,
+    averages.totalShares,
+    results.three.sharePrice.positive,
+    results.three.sharePrice.negative,
+  ]);
 
   function formSubmitHandler(formFields) {
     setStockEntries(formFields);
@@ -27,8 +46,8 @@ function App() {
     }
   }
 
-  console.log(results);
-  console.log(averages);
+  // console.log(results);
+  // console.log(averages);
 
   return (
     <div className="container">

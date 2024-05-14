@@ -2,6 +2,9 @@ import React from "react";
 
 function Results({ averages, results }) {
   const { three } = results;
+
+  const profitLoss_03 = three.costBasis.positive - averages.totalCost;
+
   return (
     <div className="results_container">
       <div className="results_totals">
@@ -47,14 +50,19 @@ function Results({ averages, results }) {
                 </span>
               </td>
               <td>
-                <span className="results_positive">$906.00 </span>/
-                <span className="results_negative"> $852.00</span>
+                <span className="results_positive">
+                  {three.costBasis.positive.toFixed(2)}
+                </span>
+                /
+                <span className="results_negative">
+                  {three.costBasis.negative.toFixed(2)}
+                </span>
               </td>
               <td>
-                <p>+/- $28.00</p>
+                <p>+/- ${Math.floor(profitLoss_03).toFixed(2)}</p>
               </td>
             </tr>
-            <tr>
+            {/* <tr>
               <td>
                 <strong>7%</strong>
               </td>
@@ -101,7 +109,7 @@ function Results({ averages, results }) {
               <td>
                 <p>+/- $28.00</p>
               </td>
-            </tr>
+            </tr> */}
           </table>
         </div>
       </div>
