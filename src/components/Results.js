@@ -1,8 +1,11 @@
 import React from "react";
 
 function Results({ averages, results }) {
-  // const { three } = results;
-  // const profitLoss_03 = three.costBasis.positive - averages.totalCost;
+  const { three, seven, thirteen, twentyone } = results;
+  const profitLoss_03 = three.costBasis.positive - averages.totalCost;
+  const profitLoss_07 = seven.costBasis.positive - averages.totalCost;
+  const profitLoss_13 = thirteen.costBasis.positive - averages.totalCost;
+  const profitLoss_21 = twentyone.costBasis.positive - averages.totalCost;
   return (
     <div className="results_container">
       <div className="results_totals">
@@ -34,7 +37,7 @@ function Results({ averages, results }) {
               <th>Cost Basis</th>
               <th>P/L</th>
             </tr>
-            {/* <tr>
+            <tr>
               <td>
                 <strong>3%</strong>
               </td>
@@ -65,15 +68,25 @@ function Results({ averages, results }) {
                 <strong>7%</strong>
               </td>
               <td>
-                <span className="results_positive">4.53 </span>/
-                <span className="results_negative"> 4.26</span>
+                <span className="results_positive">
+                  {seven.sharePrice.positive.toFixed(2)}
+                </span>
+                /
+                <span className="results_negative">
+                  {seven.sharePrice.negative.toFixed(2)}
+                </span>
               </td>
               <td>
-                <span className="results_positive">$906.00 </span>/
-                <span className="results_negative"> $852.00</span>
+                <span className="results_positive">
+                  {seven.costBasis.positive.toFixed(2)}
+                </span>
+                /
+                <span className="results_negative">
+                  {seven.costBasis.negative.toFixed(2)}
+                </span>
               </td>
               <td>
-                <p>+/- $28.00</p>
+                <p>+/- ${Math.floor(profitLoss_07).toFixed(2)}</p>
               </td>
             </tr>
             <tr>
@@ -81,15 +94,25 @@ function Results({ averages, results }) {
                 <strong>13%</strong>
               </td>
               <td>
-                <span className="results_positive">4.53 </span>/
-                <span className="results_negative"> 4.26</span>
+                <span className="results_positive">
+                  {thirteen.sharePrice.positive.toFixed(2)}
+                </span>
+                /
+                <span className="results_negative">
+                  {thirteen.sharePrice.negative.toFixed(2)}
+                </span>
               </td>
               <td>
-                <span className="results_positive">$906.00 </span>/
-                <span className="results_negative"> $852.00</span>
+                <span className="results_positive">
+                  {thirteen.costBasis.positive.toFixed(2)}
+                </span>
+                /
+                <span className="results_negative">
+                  {thirteen.costBasis.negative.toFixed(2)}
+                </span>
               </td>
               <td>
-                <p>+/- $28.00</p>
+                <p>+/- ${Math.floor(profitLoss_13).toFixed(2)}</p>
               </td>
             </tr>
             <tr>
@@ -97,17 +120,27 @@ function Results({ averages, results }) {
                 <strong>21%</strong>
               </td>
               <td>
-                <span className="results_positive">4.53 </span>/
-                <span className="results_negative"> 4.26</span>
+                <span className="results_positive">
+                  {twentyone.sharePrice.positive.toFixed(2)}
+                </span>
+                /
+                <span className="results_negative">
+                  {twentyone.sharePrice.negative.toFixed(2)}
+                </span>
               </td>
               <td>
-                <span className="results_positive">$906.00 </span>/
-                <span className="results_negative"> $852.00</span>
+                <span className="results_positive">
+                  {twentyone.costBasis.positive.toFixed(2)}
+                </span>
+                /
+                <span className="results_negative">
+                  {twentyone.costBasis.negative.toFixed(2)}
+                </span>
               </td>
               <td>
-                <p>+/- $28.00</p>
+                <p>+/- ${Math.floor(profitLoss_21).toFixed(2)}</p>
               </td>
-            </tr> */}
+            </tr>
           </table>
         </div>
       </div>
