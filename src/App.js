@@ -39,7 +39,6 @@ function App() {
         return acc;
       }, {});
 
-      console.log(newResults);
       setResults(newResults);
     }
   }, [averages]);
