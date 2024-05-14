@@ -52,3 +52,11 @@ export function calcAverages(books) {
 
   return obj;
 }
+
+export function calcPositiveSharePrice(avg, percent) {
+  return avg.averageCostPerShare * percent + avg.averageCostPerShare;
+}
+
+export function calcNegativeSharePrice(avg, percent) {
+  return avg.averageCostPerShare - avg.averageCostPerShare * percent;
+}

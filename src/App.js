@@ -1,7 +1,12 @@
 import { useState, useMemo, useEffect } from "react";
 import Form from "./components/Form";
 import Results from "./components/Results";
-import { calcStockTransactions, calcAverages } from "./utils.js";
+import {
+  calcStockTransactions,
+  calcAverages,
+  calcPositiveSharePrice,
+  calcNegativeSharePrice,
+} from "./utils.js";
 import "./App.css";
 
 function App() {
@@ -15,22 +20,18 @@ function App() {
 
   useEffect(() => {
     if (averages.totalShares > 0) {
-      const positiveSharePrice_03 =
-        averages.averageCostPerShare * 0.03 + averages.averageCostPerShare;
-      const negativeSharePrice_03 =
-        averages.averageCostPerShare - averages.averageCostPerShare * 0.03;
-      const positiveSharePrice_07 =
-        averages.averageCostPerShare * 0.07 + averages.averageCostPerShare;
-      const negativeSharePrice_07 =
-        averages.averageCostPerShare - averages.averageCostPerShare * 0.07;
-      const positiveSharePrice_13 =
-        averages.averageCostPerShare * 0.13 + averages.averageCostPerShare;
-      const negativeSharePrice_13 =
-        averages.averageCostPerShare - averages.averageCostPerShare * 0.13;
-      const positiveSharePrice_21 =
-        averages.averageCostPerShare * 0.21 + averages.averageCostPerShare;
-      const negativeSharePrice_21 =
-        averages.averageCostPerShare - averages.averageCostPerShare * 0.21;
+      const positiveSharePrice_03 = calcPositiveSharePrice(averages, 0.03);
+      const negativeSharePrice_03 = calcNegativeSharePrice(averages, 0.03);
+
+      const positiveSharePrice_07 = calcPositiveSharePrice(averages, 0.07);
+      const negativeSharePrice_07 = calcNegativeSharePrice(averages, 0.07);
+
+      const positiveSharePrice_13 = calcPositiveSharePrice(averages, 0.13);
+      const negativeSharePrice_13 = calcNegativeSharePrice(averages, 0.13);
+
+      const positiveSharePrice_21 = calcPositiveSharePrice(averages, 0.21);
+      const negativeSharePrice_21 = calcNegativeSharePrice(averages, 0.21);
+
       setResults((prev) => {
         return {
           ...prev,
