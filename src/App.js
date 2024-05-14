@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Form from "./components/Form";
 import Results from "./components/Results";
 import { calcStockTransactions, calcAverages } from "./utils.js";
@@ -9,34 +9,34 @@ function App() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [results, setResults] = useState(null);
 
-  const averages = calcAverages(calcStockTransactions(stockEntries));
+  const averages = useMemo(() => {
+    return calcAverages(calcStockTransactions(stockEntries));
+  }, [stockEntries]);
 
-  useMemo(() => {
-    setResults((prev) => {
-      return {
-        ...prev,
-        three: {
-          sharePrice: {
-            positive:
-              averages.averageCostPerShare * 0.03 +
-              averages.averageCostPerShare,
-            negative:
-              averages.averageCostPerShare -
-              averages.averageCostPerShare * 0.03,
-          },
-          costBasis: {
-            positive: averages.totalShares * results.three.sharePrice.positive,
-            negative: averages.totalShares * results.three.sharePrice.negative,
-          },
-        },
-      };
-    });
-  }, [
-    averages.averageCostPerShare,
-    averages.totalShares,
-    results.three.sharePrice.positive,
-    results.three.sharePrice.negative,
-  ]);
+  // useEffect(() => {
+  //   const positiveSharePrice_03 =
+  //     averages.averageCostPerShare * 0.03 + averages.averageCostPerShare;
+  //   const negativeSharePrice_03 =
+  //     averages.averageCostPerShare - averages.averageCostPerShare * 0.03;
+
+  //   if (averages.totalShares > 0) {
+  //     setResults((prev) => {
+  //       return {
+  //         ...prev,
+  //         three: {
+  //           sharePrice: {
+  //             positive: positiveSharePrice_03,
+  //             negative: negativeSharePrice_03,
+  //           },
+  //           costBasis: {
+  //             positive: averages.totalShares * positiveSharePrice_03,
+  //             negative: averages.totalShares * negativeSharePrice_03,
+  //           },
+  //         },
+  //       };
+  //     });
+  //   }
+  // }, [averages, results]);
 
   function formSubmitHandler(formFields) {
     setStockEntries(formFields);
@@ -46,13 +46,11 @@ function App() {
     }
   }
 
-  // console.log(results);
-  // console.log(averages);
-
   return (
     <div className="container">
       <Form formSubmitHandler={formSubmitHandler} />
       {!isDisabled &&
+        stockEntries.length > 0 &&
         stockEntries[0].count > 0 &&
         stockEntries[0].price > 0 && (
           <Results averages={averages} results={results} />

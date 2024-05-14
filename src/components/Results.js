@@ -1,10 +1,8 @@
 import React from "react";
 
 function Results({ averages, results }) {
-  const { three } = results;
-
-  const profitLoss_03 = three.costBasis.positive - averages.totalCost;
-
+  // const { three } = results;
+  // const profitLoss_03 = three.costBasis.positive - averages.totalCost;
   return (
     <div className="results_container">
       <div className="results_totals">
@@ -36,7 +34,7 @@ function Results({ averages, results }) {
               <th>Cost Basis</th>
               <th>P/L</th>
             </tr>
-            <tr>
+            {/* <tr>
               <td>
                 <strong>3%</strong>
               </td>
@@ -62,7 +60,7 @@ function Results({ averages, results }) {
                 <p>+/- ${Math.floor(profitLoss_03).toFixed(2)}</p>
               </td>
             </tr>
-            {/* <tr>
+            <tr>
               <td>
                 <strong>7%</strong>
               </td>
