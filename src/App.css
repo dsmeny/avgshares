@@ -13,6 +13,7 @@ input[type="number"] {
 :root {
   --title-color: #ff9800;
   --header-color: #5b5b5b;
+  --bg-color: #fcfcfc;
 }
 
 body {
@@ -39,14 +40,13 @@ table tr:nth-child(even) {
 }
 
 .container {
-  background-color: #fcfcfc;
+  background-color: var(--bg-color);
   border-radius: 10px;
   width: 100%;
   max-width: 680px;
   display: flex;
-  align-items: center;
-  flex-direction: column;
   padding: 20px;
+  position: relative;
 }
 
 .results_positive {
@@ -155,4 +155,41 @@ input[type="submit"]:active {
   font-size: medium;
   border: none;
   background-color: transparent;
+}
+
+/* sidebar */
+.hideSidebar {
+  translate: -75px 0;
+  background: transparent !important;
+}
+
+.sidebar {
+  position: absolute;
+  background: var(--bg-color);
+  top: 5px;
+  left: 5px;
+  width: 10rem;
+  padding-inline-start: 0px;
+  z-index: 999;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.sidebar-close {
+  position: absolute;
+  right: 0px;
+  font-size: 1.6rem;
+  opacity: 0.3;
+}
+
+.sidebar h3 {
+  padding: 5px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0 5px;
 }

@@ -8,7 +8,7 @@ import {
   calcNegativeSharePrice,
 } from "../utils.js";
 
-function CalcAvg() {
+function CalcAvgPage() {
   const [stockEntries, setStockEntries] = useState([]);
   const [results, setResults] = useState(null);
 
@@ -54,4 +54,4 @@ function CalcAvg() {
   );
 }
 
-export default CalcAvg;
+export default CalcAvgPage;
