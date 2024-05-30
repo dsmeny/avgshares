@@ -34,7 +34,7 @@ const Sidebar = ({ clickHandler }) => {
 const styles = {
   link: {
     textDecoration: "none",
-    color: "#1E90FF",
+    color: "#494949",
   },
 };
 
