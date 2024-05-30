@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const WelcomePage = () => {
   return (
@@ -11,7 +12,11 @@ const WelcomePage = () => {
         tools and features that make managing your trades and tracking your
         progress easier than ever. Here’s what you can expect from Trade Help:
       </p>
-      <h2 style={styles.subtitle}>Stock Average Calculator</h2>
+      <h2 style={styles.subtitle}>
+        <Link to="/avg" style={styles.link}>
+          Stock Average Calculator
+        </Link>
+      </h2>
       <p style={styles.paragraph}>
         Simplify your trading calculations with our intuitive Stock Average
         Calculator. Just enter the number of shares for each trade and their
@@ -29,7 +34,11 @@ const WelcomePage = () => {
           summary.
         </li>
       </ul>
-      <h2 style={styles.subtitle}>Private Notes</h2>
+      <h2 style={styles.subtitle}>
+        <Link to="/private-notes" style={styles.link}>
+          Private Notes
+        </Link>
+      </h2>
       <p style={styles.paragraph}>
         Keep your thoughts and strategies organized with our private notes
         feature. Using IndexDB, your notes will be securely stored on your
@@ -37,7 +46,11 @@ const WelcomePage = () => {
         the page. Jot down trading ideas, strategies, and observations to refine
         your approach over time.
       </p>
-      <h2 style={styles.subtitle}>Trading Calendar</h2>
+      <h2 style={styles.subtitle}>
+        <Link to="/calendar" style={styles.link}>
+          Trading Calendar
+        </Link>
+      </h2>
       <p style={styles.paragraph}>
         Track your daily performance with our comprehensive Trading Calendar.
         Easily upload your profit and loss (P/L) data from Think or Swim, and
@@ -80,6 +93,10 @@ const styles = {
   },
   subtitle: {
     marginTop: "20px",
+    color: "#1E90FF",
+  },
+  link: {
+    textDecoration: "none",
     color: "#1E90FF",
   },
   paragraph: {

@@ -6,29 +6,36 @@ const Sidebar = ({ clickHandler }) => {
   return (
     <div className="sidebar">
       <FiX onClick={clickHandler} className="sidebar-close" />
-      <Link to="/" onClick={clickHandler}>
+      <Link to="/" style={styles.link} onClick={clickHandler}>
         <h3>Trade Help</h3>
       </Link>
 
       <ul>
         <li>
-          <Link to="/avg" onClick={clickHandler}>
-            Avg Stock Calc
+          <Link to="/avg" style={styles.link} onClick={clickHandler}>
+            Stock Average Calc
           </Link>
         </li>
         <li>
-          <Link to="/calendar" onClick={clickHandler}>
-            Calendar
-          </Link>
-        </li>
-        <li>
-          <Link to="/private-notes" onClick={clickHandler}>
+          <Link to="/private-notes" style={styles.link} onClick={clickHandler}>
             Private Notes
+          </Link>
+        </li>
+        <li>
+          <Link to="/calendar" style={styles.link} onClick={clickHandler}>
+            Trading Calendar
           </Link>
         </li>
       </ul>
     </div>
   );
+};
+
+const styles = {
+  link: {
+    textDecoration: "none",
+    color: "#1E90FF",
+  },
 };
 
 export default Sidebar;
