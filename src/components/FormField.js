@@ -33,7 +33,7 @@ function FormField({ index }) {
           min={MIN_VALUE}
           max={MAX_VALUE}
           value={shareAmount}
-          onMouseDown={() => {
+          onFocus={() => {
             shareAmount === 0 && setShareAmount("");
           }}
           onChange={(e) => {
