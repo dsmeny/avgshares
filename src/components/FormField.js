@@ -2,7 +2,7 @@ import { useState } from "react";
 import { PRICE, SHARES, MAX_VALUE, MIN_VALUE } from "../enums.js";
 
 function FormField({ index }) {
-  const [numberOfShares, setNumberOfShares] = useState(0);
+  const [sharePrice, setSharePrice] = useState(0);
   const [shareAmount, setShareAmount] = useState(0);
 
   return (
@@ -10,24 +10,24 @@ function FormField({ index }) {
       <div className="formItem">
         <label>{index}. </label>
         <input
-          name={SHARES}
+          name={PRICE}
           type="number"
           step="1"
           min={MIN_VALUE}
           max={MAX_VALUE}
-          value={numberOfShares}
+          value={sharePrice}
           onMouseDown={() => {
             sharePrice === 0 && setSharePrice("");
           }}
           onChange={(e) => {
-            setNumberOfShares(Number(e.target.value));
+            setSharePrice(Number(e.target.value));
           }}
         />
       </div>
       <div className="formItem">
         <label>$ </label>
         <input
-          name={PRICE}
+          name={SHARES}
           type="number"
           step="0.01"
           min={MIN_VALUE}
