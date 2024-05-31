@@ -12,6 +12,7 @@ input[type="number"] {
 
 :root {
   --title-color: #ff9800;
+  --subtitle-color: #1e90ff;
   --header-color: #5b5b5b;
   --bg-color: #fcfcfc;
 }
@@ -111,7 +112,7 @@ table tr:nth-child(even) {
 }
 
 .form_headers h3 {
-  color: var(--title-color);
+  color: var(--subtitle-color);
 }
 
 form {
@@ -129,18 +130,18 @@ input[type="submit"] {
   cursor: pointer;
   outline: none;
   color: #fff;
-  background-color: var(--title-color);
+  background-color: var(--subtitle-color);
   border: none;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 input[type="submit"]:hover {
-  background-color: #ff9900da;
+  background-color: #3899f9;
 }
 
 input[type="submit"]:active {
-  background-color: #ff9900b7;
+  background-color: #3899f9;
   box-shadow: rgba(0, 0, 0, 0.18) 0px 3px 8px;
   transform: translateY(4px);
 }
@@ -192,4 +193,15 @@ input[type="submit"]:active {
   align-items: flex-start;
   gap: 0.5rem;
   padding: 0 5px;
+}
+
+/* Calc Avg Page */
+
+.calcavg-container {
+  flex-direction: column;
+}
+
+.calcavg-container h2 {
+  text-align: center;
+  color: var(--subtitle-color);
 }

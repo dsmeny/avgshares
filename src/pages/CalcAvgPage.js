@@ -43,11 +43,13 @@ function CalcAvgPage() {
   }, [averages]);
 
   function formSubmitHandler(formFields) {
+    console.log(formFields);
     setStockEntries(formFields);
   }
 
   return (
-    <div className="container">
+    <div className="container calcavg-container">
+      <h2>Stock Average Calculator</h2>
       <Form formSubmitHandler={formSubmitHandler} />
       {results !== null && <Results averages={averages} results={results} />}
     </div>
