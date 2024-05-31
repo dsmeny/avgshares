@@ -43,7 +43,6 @@ function CalcAvgPage() {
   }, [averages]);
 
   function formSubmitHandler(formFields) {
-    console.log(formFields);
     setStockEntries(formFields);
   }
 

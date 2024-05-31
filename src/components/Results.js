@@ -45,11 +45,11 @@ function Results({ averages, results }) {
     <div className="results_container">
       <div className="results_totals">
         <div>
-          <h3>Total Shares</h3>
+          <h4 className="results_totals_headers">Total Shares</h4>
           <p>{averages.totalShares}</p>
         </div>
         <div>
-          <h3>Average Cost</h3>
+          <h4 className="results_totals_headers">Average Cost</h4>
           <p>
             $
             {averages.averageCostPerShare
@@ -58,7 +58,7 @@ function Results({ averages, results }) {
           </p>
         </div>
         <div>
-          <h3>Total Cost</h3>
+          <h4 className="results_totals_headers">Total Cost</h4>
           <p>${averages.totalCost.toFixed(2)}</p>
         </div>
       </div>

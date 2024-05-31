@@ -68,6 +68,10 @@ table tr:nth-child(even) {
   text-align: left;
 }
 
+.results_totals_headers {
+  color: rgba(0, 0, 0, 0.7);
+}
+
 .results_container {
   display: flex;
   flex-direction: column;
@@ -87,7 +91,7 @@ table tr:nth-child(even) {
 }
 
 .results_percentages h3 {
-  color: var(--title-color) !important;
+  color: var(--subtitle-color) !important;
 }
 
 .results_percentages_container_cols {
