@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import { values, set } from "../utils/_cliDB";
 import { v4 as uuidv4 } from "uuid";
+import NoteCards from "../components/NoteCards";
+import NotesForm from "../components/NotesForm";
+import "../styles/notes.css";
 
 const PrivateNotesPage = () => {
   const [db, setDb] = useState([]);
 
   async function fetchData(val = null) {
     const data = await values();
+
     if (val) {
-      setDb((prev) => [...prev, val]);
+      setDb((prev) => [...prev, JSON.parse(val)]);
       return;
     }
 
-    setDb(data);
+    const parsedMessages = data.map((message) => JSON.parse(message));
+    setDb(parsedMessages);
   }
 
   function submitHandler(e) {
@@ -21,7 +26,10 @@ const PrivateNotesPage = () => {
     const target = e.target;
     const value = target[0].value;
     const date = new Date();
-    const newValue = `${date.toLocaleString()}: ${value}`;
+    const newValue = JSON.stringify({
+      header: "",
+      body: `${date.toLocaleString()}: ${value}`,
+    });
 
     set(newValue, uuidv4());
 
@@ -33,17 +41,10 @@ const PrivateNotesPage = () => {
   }, []);
 
   return (
-    <div className="container" onSubmit={submitHandler}>
-      <form>
-        <input type="text" placeholder="enter a private message." />
-        <input type="submit" />
-      </form>
-      <div className="notes_output">
-        <ul>
-          {db.map((messages, i) => (
-            <li key={i}>{messages}</li>
-          ))}
-        </ul>
+    <div className="container">
+      <NotesForm submitHandler={submitHandler} />
+      <div className="notes">
+        <NoteCards db={db} />
       </div>
     </div>
   );

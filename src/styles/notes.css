@@ -1,0 +1,33 @@
+.notes_form {
+  width: 30%;
+}
+
+.notes {
+  width: 100%;
+}
+
+.notes_cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  list-style-type: none;
+}
+
+.notes_card {
+  width: 100%;
+  border: 1px solid black;
+  min-height: 10rem;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.notes_card_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notes_card_btns {
+  display: flex;
+  gap: 0.5rem;
+}

@@ -6,7 +6,7 @@ import Sidebar from "./components/Sidebar";
 import CalendarPage from "./pages/CalendarPage";
 import PrivateNotesPage from "./pages/PrivateNotesPage";
 import { FiAlignJustify } from "react-icons/fi";
-import "./App.css";
+import "./styles/App.css";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
