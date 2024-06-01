@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { FORM_FIELD_ROWS } from "../enums.js";
-import { onFormSubmit } from "../utils.js";
-import FormField from "./FormField.js";
+import { FORM_FIELD_ROWS } from "../utils/enums.js";
+import { onFormSubmit } from "../utils/global.js";
+import CalcFormField from "./CalcFormField.js";
 import FormHeaders from "./FormHeaders.js";
 
 function Form({ formSubmitHandler }) {
@@ -23,7 +23,7 @@ function Form({ formSubmitHandler }) {
       {Array(FORM_FIELD_ROWS)
         .fill()
         .map((_, i) => (
-          <FormField key={i} index={i + 1} />
+          <CalcFormField key={i} index={i + 1} />
         ))}
 
       <div className="bts">
