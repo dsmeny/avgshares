@@ -51,7 +51,7 @@ function NoteCard({ messages }) {
             readOnly={isReadOnly}
             placeholder="enter a label"
             onChange={changeHandler}
-            value={label}
+            value={header === "" ? label : header}
             onKeyUp={eventHandler}
             ref={inputRef}
           />

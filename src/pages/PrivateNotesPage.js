@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { values, set } from "../utils/_cliDB";
+import { values, keys, set } from "../utils/_idbMessages";
 import { v4 as uuidv4 } from "uuid";
 import NoteCards from "../components/NoteCards";
 import NotesForm from "../components/NotesForm";

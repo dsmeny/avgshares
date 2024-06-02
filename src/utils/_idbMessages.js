@@ -18,6 +18,11 @@ export const set = async (val, key) => {
   return await db.put("messages", val, key);
 };
 
+export const put = async (val, key) => {
+  const db = await doDatabaseStuff();
+  await db.put("messages", val, key);
+};
+
 export const del = async (key) => {
   const db = await doDatabaseStuff();
   return await db.delete("messages", key);
