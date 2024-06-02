@@ -1,29 +1,60 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FiX } from "react-icons/fi";
+import {
+  PiCalculatorThin,
+  PiNotepad,
+  PiCalendarDotLight,
+} from "react-icons/pi";
 
 const Sidebar = ({ clickHandler }) => {
   return (
     <div className="sidebar">
-      <FiX onClick={clickHandler} className="sidebar-close" />
-      <Link to="/" style={styles.link} onClick={clickHandler}>
-        <h3>Trade Help</h3>
-      </Link>
+      <div className="sidebar_header">
+        <FiX onClick={clickHandler} className="sidebar-close" />
+        <Link to="/" style={styles.link} onClick={clickHandler}>
+          <h3>Trade Help</h3>
+        </Link>
+      </div>
 
-      <ul>
+      <ul className="sidebar_links">
         <li>
-          <Link to="/avg" style={styles.link} onClick={clickHandler}>
-            Stock Average Calc
+          <Link
+            className="sidebar_link"
+            to="/avg"
+            style={styles.link}
+            onClick={clickHandler}
+          >
+            <span className="sidebar_icon">
+              <PiCalculatorThin />
+            </span>
+            <span> Stock Average Calc</span>
           </Link>
         </li>
         <li>
-          <Link to="/private-notes" style={styles.link} onClick={clickHandler}>
-            Private Notes
+          <Link
+            className="sidebar_link"
+            to="/private-notes"
+            style={styles.link}
+            onClick={clickHandler}
+          >
+            <span className="sidebar_icon">
+              <PiNotepad />
+            </span>
+            <span> Private Notes</span>
           </Link>
         </li>
         <li>
-          <Link to="/calendar" style={styles.link} onClick={clickHandler}>
-            Trading Calendar
+          <Link
+            className="sidebar_link"
+            to="/calendar"
+            style={styles.link}
+            onClick={clickHandler}
+          >
+            <span className="sidebar_icon">
+              <PiCalendarDotLight />
+            </span>
+            <span> Trading Calendar</span>
           </Link>
         </li>
       </ul>

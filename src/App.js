@@ -41,6 +41,7 @@ const styles = {
     left: "5px",
     top: "5px",
     fontSize: "2rem",
+    color: "var(--subtitle-color)",
   },
 };
 

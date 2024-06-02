@@ -173,30 +173,75 @@ input[type="submit"]:active {
   background: var(--bg-color);
   top: 5px;
   left: 5px;
-  width: 10rem;
+  font-size: 1.2rem;
+  font-weight: 300;
+  width: 14rem;
   padding-inline-start: 0px;
   z-index: 999;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+.sidebar_header {
+  border-bottom: 1px solid #f3f1f1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 50px;
+}
+
 .sidebar-close {
   position: absolute;
-  right: 0px;
+  right: 5px;
   font-size: 1.6rem;
-  opacity: 0.3;
+  transition: 0.3s ease-out;
+  color: var(--header-color);
 }
 
-.sidebar h3 {
+.sidebar-close:hover {
+  color: var(--subtitle-color);
+  opacity: 1;
+}
+
+.sidebar_header h3 {
   padding: 5px;
+  color: var(--subtitle-color);
 }
 
-.sidebar ul {
+.sidebar_links {
   list-style-type: none;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
   padding: 0 5px;
+}
+
+.sidebar_links li {
+  width: 100%;
+}
+
+.sidebar_links li a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sidebar_links li a span:nth-child(1) {
+  color: var(--title-color);
+}
+
+.sidebar_link span {
+  background-color: none;
+  color: var(--header-color);
+  transition: 0.3s linear;
+}
+
+.sidebar_link span:hover {
+  color: var(--subtitle-color) !important;
+}
+
+.sidebar_icon {
+  translate: 0px 2px;
 }
 
 /* Calc Avg Page */
