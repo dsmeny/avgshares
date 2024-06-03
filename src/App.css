@@ -202,6 +202,10 @@ input[type="submit"]:active {
   opacity: 1;
 }
 
+.sidebar_header a {
+  text-decoration: none;
+}
+
 .sidebar_header h3 {
   padding: 5px;
   color: var(--subtitle-color);
@@ -216,28 +220,17 @@ input[type="submit"]:active {
   padding: 0 5px;
 }
 
-.sidebar_links li {
-  width: 100%;
+.sidebar_link {
+  text-decoration: none !important;
+  color: var(--header-color) !important;
 }
 
-.sidebar_links li a {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.sidebar_links li a span:nth-child(1) {
-  color: var(--title-color);
-}
-
-.sidebar_link span {
-  background-color: none;
-  color: var(--header-color);
-  transition: 0.3s linear;
-}
-
-.sidebar_link span:hover {
+.sidebar_link:hover {
   color: var(--subtitle-color) !important;
+}
+
+svg {
+  color: var(--title-color);
 }
 
 .sidebar_icon {
