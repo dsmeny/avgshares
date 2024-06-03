@@ -229,12 +229,9 @@ input[type="submit"]:active {
   color: var(--subtitle-color) !important;
 }
 
-svg {
-  color: var(--title-color);
-}
-
 .sidebar_icon {
   translate: 0px 2px;
+  margin-right: 5px;
 }
 
 /* Calc Avg Page */
