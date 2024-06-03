@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
+import { keys, put, get } from "../utils/_idbMessages";
 import { FiEdit2 } from "react-icons/fi";
 
 const NoteCards = ({ db }) => {
   return (
     <ul className="notes_cards">
-      {db.map((messages, i) => (
-        <NoteCard key={i} messages={messages} />
+      {db.map((messages) => (
+        <NoteCard key={messages.id} messages={messages} />
       ))}
     </ul>
   );
@@ -27,9 +28,20 @@ function NoteCard({ messages }) {
     setLabel(value);
   }
 
-  function eventHandler(e) {
+  async function eventHandler(e) {
     if (e.keyCode === 13) {
-      setLabel(e.target.value);
+      const labelVal = e.target.value;
+      const messageKeys = await keys();
+      const matchedMessageKey = messageKeys.find(
+        (message) => message === messages.id
+      );
+
+      const matchedIdbRecord = await get(matchedMessageKey);
+      const message = JSON.parse(matchedIdbRecord);
+      message.header = labelVal;
+
+      put(JSON.stringify(message), matchedMessageKey);
+      setLabel(labelVal);
       setIsReadOnly(true);
     }
   }

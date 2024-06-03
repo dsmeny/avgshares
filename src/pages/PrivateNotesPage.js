@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { values, keys, set } from "../utils/_idbMessages";
+import { values, set } from "../utils/_idbMessages";
 import { v4 as uuidv4 } from "uuid";
 import NoteCards from "../components/NoteCards";
 import NotesForm from "../components/NotesForm";
@@ -26,12 +26,14 @@ const PrivateNotesPage = () => {
     const target = e.target;
     const value = target[0].value;
     const date = new Date();
+    const id = uuidv4();
     const newValue = JSON.stringify({
+      id,
       header: "",
       body: `${date.toLocaleString()}: ${value}`,
     });
 
-    set(newValue, uuidv4());
+    set(newValue, id);
 
     fetchData(newValue);
   }
