@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { keys, put, get } from "../utils/_idbMessages";
-import { FiEdit2 } from "react-icons/fi";
+import { FiEdit2, FiTrash2, FiCopy, FiFilePlus } from "react-icons/fi";
 
 const NoteCards = ({ db }) => {
   return (
@@ -67,12 +67,12 @@ function NoteCard({ messages }) {
             onKeyUp={eventHandler}
             ref={inputRef}
           />
-          <FiEdit2 onClick={editLabel} />
+          <FiEdit2 onClick={editLabel} className="notes_card_icons" />
         </div>
         <div className="notes_card_btns">
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
+          <FiTrash2 className="notes_card_icons" />
+          <FiCopy className="notes_card_icons" />
+          <FiFilePlus className="notes_card_icons" />
         </div>
       </div>
       <div className="notes_card_message">
