@@ -1,9 +1,20 @@
+.notes_container {
+  align-items: flex-start;
+}
+
+.notes_container_cards {
+  width: 100%;
+}
+
 .notes_form {
   width: 30%;
 }
 
-.notes {
-  width: 100%;
+.notes_form_message {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: var(--shadow);
 }
 
 .notes_cards {

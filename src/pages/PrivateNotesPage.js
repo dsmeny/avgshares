@@ -43,9 +43,9 @@ const PrivateNotesPage = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container notes_container">
       <NotesForm submitHandler={submitHandler} />
-      <div className="notes">
+      <div className="notes_container_cards">
         <NoteCards db={db} />
       </div>
     </div>

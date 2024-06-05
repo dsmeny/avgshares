@@ -20,7 +20,12 @@ function NoteCard({ messages }) {
   const inputRef = useRef();
 
   function editLabel() {
-    setIsReadOnly((prev) => !prev);
+    if (isReadOnly === true) {
+      setIsReadOnly(false);
+      return;
+    } else {
+      setIsReadOnly(true);
+    }
   }
 
   function changeHandler(e) {
@@ -30,7 +35,7 @@ function NoteCard({ messages }) {
 
   async function eventHandler(e) {
     if (e.keyCode === 13) {
-      const labelVal = e.target.value;
+      const labelVal = inputRef.current.value;
       const messageKeys = await keys();
       const matchedMessageKey = messageKeys.find(
         (message) => message === messages.id
@@ -51,6 +56,11 @@ function NoteCard({ messages }) {
 
     if (isReadOnly === false) {
       input.focus();
+      return;
+    }
+
+    if (label === "") {
+      setLabel(header);
     }
   }, [isReadOnly]);
 
@@ -63,7 +73,7 @@ function NoteCard({ messages }) {
             readOnly={isReadOnly}
             placeholder="enter a label"
             onChange={changeHandler}
-            value={header === "" ? label : header}
+            value={label}
             onKeyUp={eventHandler}
             ref={inputRef}
           />
