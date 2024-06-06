@@ -70,6 +70,7 @@ function NoteCard({ messages }) {
         <div className="notes_card_label">
           <input
             type="text"
+            className={`${isReadOnly ? "" : "notes_card_focus"}`}
             readOnly={isReadOnly}
             placeholder="enter a label"
             onChange={changeHandler}

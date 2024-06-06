@@ -56,10 +56,10 @@
   background-color: transparent;
   font-size: 1rem;
   color: var(--header-color);
+  outline: none;
 }
 
-.notes_card_label input:focus {
-  outline: none;
+.notes_card_focus:focus {
   border-bottom: 1px solid #f4f40c;
 }
 
