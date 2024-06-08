@@ -78,7 +78,10 @@ function NoteCard({ message, removeCard }) {
             onKeyUp={eventHandler}
             ref={inputRef}
           />
-          <FiEdit2 onClick={editLabel} className="notes_card_icons" />
+          <FiEdit2
+            onClick={editLabel}
+            className={`notes_card_icons ${isReadOnly ? "" : "active"}`}
+          />
         </div>
         <div className="notes_card_btns">
           <FiTrash2 className="notes_card_icons" onClick={deleteHandler} />

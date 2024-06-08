@@ -40,7 +40,7 @@
   flex-direction: column;
   align-items: start;
   gap: 0.5rem;
-  background-color: yellow;
+  background-color: var(--subtitle-color);
   translate: -5px -5px;
   padding: 5px;
   width: 20rem;
@@ -56,17 +56,18 @@
   border: none;
   background-color: transparent;
   font-size: 1rem;
-  color: var(--header-color);
+  color: var(--bg-color);
   outline: none;
 }
 
 .notes_card_focus:focus {
-  border-bottom: 1px solid #f4f40c;
+  border-bottom: 1px solid var(--active);
 }
 
 .notes_card_label input::placeholder {
   opacity: 0.4;
   font-size: 0.9rem;
+  color: var(--bg-color);
 }
 
 .notes_card_btns {
@@ -75,5 +76,9 @@
 
 .notes_card_icons {
   font-size: 1.1rem;
-  color: var(--header-color);
+  color: var(--bg-color);
+}
+
+.active {
+  color: var(--active);
 }
