@@ -1,0 +1,84 @@
+.notes_container {
+  align-items: flex-start;
+}
+
+.notes_container_cards {
+  width: 100%;
+}
+
+.notes_form {
+  width: 30%;
+}
+
+.notes_form_message {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: var(--shadow);
+}
+
+.notes_cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.7rem;
+  list-style-type: none;
+  width: 100%;
+}
+
+.notes_card {
+  min-height: 10rem;
+  border-radius: 10px;
+  padding: 5px;
+  overflow: hidden;
+  background-color: var(--alt-bg-color);
+  box-shadow: var(--shadow);
+  max-width: 300px;
+}
+
+.notes_card_header {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+  background-color: var(--subtitle-color);
+  translate: -5px -5px;
+  padding: 5px;
+  width: 20rem;
+}
+
+.notes_card_btns,
+.notes_card_label {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.notes_card_label input {
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  color: var(--bg-color);
+  outline: none;
+}
+
+.notes_card_focus:focus {
+  border-bottom: 1px solid var(--active);
+}
+
+.notes_card_label input::placeholder {
+  opacity: 0.4;
+  font-size: 0.9rem;
+  color: var(--bg-color);
+}
+
+.notes_card_btns {
+  align-items: center;
+}
+
+.notes_card_icons {
+  font-size: 1.1rem;
+  color: var(--bg-color);
+}
+
+.active {
+  color: var(--active);
+}

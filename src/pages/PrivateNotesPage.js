@@ -1,35 +1,71 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { values, set, del } from "../utils/_idbMessages";
+import { createNewMessage, getMessage } from "../utils/crudMessages";
+import NoteCards from "../components/NoteCards";
+import NotesForm from "../components/NotesForm";
+import "../styles/notes.css";
 
 const PrivateNotesPage = () => {
+  const [messages, setMessages] = useState([]);
+  const [refreshComponent, setRefreshComponent] = useState(false);
+
+  async function removeCard(messageid) {
+    del(messageid);
+    setRefreshComponent((prev) => !prev);
+  }
+
+  function refresh() {
+    setRefreshComponent((prev) => !prev);
+  }
+
+  async function duplicateCard(messageid) {
+    const { body } = await getMessage(messageid);
+    const { newMessage, id } = createNewMessage(body);
+    set(newMessage, id);
+    refresh();
+  }
+
+  async function fetchData(val = null) {
+    const data = await values();
+
+    if (val) {
+      setMessages((prev) => [...prev, JSON.parse(val)]);
+      return;
+    }
+
+    const parsedMessages = data.map((message) => JSON.parse(message));
+    setMessages(parsedMessages);
+  }
+
+  function submitHandler(e) {
+    e.preventDefault();
+
+    const target = e.target;
+    const value = target[0].value;
+
+    const { newMessage, id } = createNewMessage(value);
+
+    set(newMessage, id);
+    fetchData(newMessage);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [refreshComponent]);
+
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>Private Notes (Coming Soon)</h2>
-      <p style={styles.paragraph}>
-        Stay organized and keep track of your trading strategies with our
-        upcoming Private Notes feature. This tool will allow you to jot down
-        your thoughts, ideas, and observations securely. Using IndexDB, your
-        notes will be safely stored on your device, ensuring they remain
-        available even if you close the app or refresh the page. Stay tuned for
-        this exciting feature that will help you refine your trading approach
-        and keep your insights all in one place!
-      </p>
+    <div className="container notes_container">
+      <NotesForm submitHandler={submitHandler} />
+      <div className="notes_container_cards">
+        <NoteCards
+          messages={messages}
+          removeCard={removeCard}
+          duplicateCard={duplicateCard}
+          refresh={refresh}
+        />
+      </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    padding: "20px",
-    lineHeight: "1.6",
-    color: "#333",
-  },
-  title: {
-    textAlign: "center",
-    color: "#1E90FF",
-  },
-  paragraph: {
-    marginBottom: "20px",
-  },
 };
 
 export default PrivateNotesPage;

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { PRICE, SHARES, MAX_VALUE, MIN_VALUE } from "../enums.js";
+import { PRICE, SHARES, MAX_VALUE, MIN_VALUE } from "../utils/enums.js";
 
-function FormField({ index }) {
+function CalcFormField({ index }) {
   const [sharePrice, setSharePrice] = useState(0);
   const [shareAmount, setShareAmount] = useState(0);
 
@@ -45,4 +45,4 @@ function FormField({ index }) {
   );
 }
 
-export default FormField;
+export default CalcFormField;

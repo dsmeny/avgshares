@@ -14,7 +14,10 @@ input[type="number"] {
   --title-color: #ff9800;
   --subtitle-color: #1e90ff;
   --header-color: #5b5b5b;
-  --bg-color: #fcfcfc;
+  --bg-color: #fdfdfd;
+  --alt-bg-color: #fcfcf3;
+  --shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  --active: #5ee411;
 }
 
 body {
@@ -26,6 +29,11 @@ body {
 h3,
 th {
   color: var(--header-color);
+}
+
+p {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
 }
 
 td > strong {
@@ -137,7 +145,7 @@ input[type="submit"] {
   background-color: var(--subtitle-color);
   border: none;
   border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: var(--shadow);
 }
 
 input[type="submit"]:hover {
@@ -146,7 +154,7 @@ input[type="submit"]:hover {
 
 input[type="submit"]:active {
   background-color: #3899f9;
-  box-shadow: rgba(0, 0, 0, 0.18) 0px 3px 8px;
+  box-shadow: var(--shadow);
   transform: translateY(4px);
 }
 

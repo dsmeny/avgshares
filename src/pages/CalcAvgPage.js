@@ -1,12 +1,12 @@
 import { useState, useMemo, useEffect } from "react";
-import Form from "../components/Form";
+import CalcForm from "../components/CalcForm";
 import Results from "../components/Results.js";
 import {
   calcStockTransactions,
   calcAverages,
   calcPositiveSharePrice,
   calcNegativeSharePrice,
-} from "../utils.js";
+} from "../utils/global";
 
 function CalcAvgPage() {
   const [stockEntries, setStockEntries] = useState([]);
@@ -49,7 +49,7 @@ function CalcAvgPage() {
   return (
     <div className="container calcavg-container">
       <h2>Stock Average Calculator</h2>
-      <Form formSubmitHandler={formSubmitHandler} />
+      <CalcForm formSubmitHandler={formSubmitHandler} />
       {results !== null && <Results averages={averages} results={results} />}
     </div>
   );
