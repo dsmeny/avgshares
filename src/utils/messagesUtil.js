@@ -27,3 +27,17 @@ export const updateMessage = async (id, value) => {
 
   put(JSON.stringify(message), id);
 };
+
+export const copyCardHandler = async (header, body) => {
+  if (header !== "") {
+    await navigator.clipboard.writeText(`${header}. ${body}`);
+    return;
+  }
+  await navigator.clipboard.writeText(body);
+};
+
+export const captureInputToUpdate = (id, ref) => {
+  const labelVal = ref.current.value;
+  updateMessage(id, labelVal);
+  return labelVal;
+};

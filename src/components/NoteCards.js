@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { updateMessage } from "../utils/crudMessages";
+import { copyCardHandler, captureInputToUpdate } from "../utils/messagesUtil";
 import { FiEdit2, FiTrash2, FiCopy, FiFilePlus } from "react-icons/fi";
 
 const NoteCards = ({ messages, removeCard, duplicateCard, refresh }) => {
@@ -29,16 +29,33 @@ function NoteCard({ message, removeCard, duplicateCard, refresh }) {
     removeCard(id);
   }
 
-  async function copyCardHandler() {
-    if (header !== "") {
-      await navigator.clipboard.writeText(`${header}. ${body}`);
-      return;
-    }
-    await navigator.clipboard.writeText(body);
-  }
-
   function duplicateCardHandler() {
     duplicateCard(id);
+  }
+
+  function changeHandler(e) {
+    const value = e.target.value;
+    setLabel(value);
+  }
+
+  function editLabel() {
+    if (isReadOnly === true) {
+      setIsReadOnly(false);
+      return;
+    } else {
+      const labelVal = captureInputToUpdate(id, inputRef);
+      setLabel(labelVal);
+      setIsReadOnly(true);
+    }
+  }
+
+  function updateTitle(e) {
+    if (e.keyCode === 13) {
+      const labelVal = captureInputToUpdate(id, inputRef);
+      setLabel(labelVal);
+      setIsReadOnly(true);
+      refresh();
+    }
   }
 
   useEffect(() => {
@@ -55,31 +72,6 @@ function NoteCard({ message, removeCard, duplicateCard, refresh }) {
     }
   }, [isReadOnly]);
 
-  function editLabel() {
-    if (isReadOnly === true) {
-      setIsReadOnly(false);
-      return;
-    } else {
-      setIsReadOnly(true);
-    }
-  }
-
-  function changeHandler(e) {
-    const value = e.target.value;
-    setLabel(value);
-  }
-
-  async function updateMessageHandler(e) {
-    if (e.keyCode === 13) {
-      const labelVal = inputRef.current.value;
-
-      updateMessage(id, labelVal);
-      setLabel(labelVal);
-      setIsReadOnly(true);
-      refresh();
-    }
-  }
-
   return (
     <li className="notes_card">
       <div className="notes_card_header">
@@ -91,7 +83,7 @@ function NoteCard({ message, removeCard, duplicateCard, refresh }) {
             placeholder="create a title"
             onChange={changeHandler}
             value={label}
-            onKeyUp={updateMessageHandler}
+            onKeyUp={updateTitle}
             ref={inputRef}
           />
           <FiEdit2
@@ -101,7 +93,10 @@ function NoteCard({ message, removeCard, duplicateCard, refresh }) {
         </div>
         <div className="notes_card_btns">
           <FiTrash2 className="notes_card_icons" onClick={deleteHandler} />
-          <FiCopy className="notes_card_icons" onClick={copyCardHandler} />
+          <FiCopy
+            className="notes_card_icons"
+            onClick={() => copyCardHandler(header, body)}
+          />
           <FiFilePlus
             className="notes_card_icons"
             onClick={duplicateCardHandler}

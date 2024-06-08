@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { values, set, del } from "../utils/_idbMessages";
-import { createNewMessage, getMessage } from "../utils/crudMessages";
+import { createNewMessage, getMessage } from "../utils/messagesUtil";
 import NoteCards from "../components/NoteCards";
 import NotesForm from "../components/NotesForm";
 import "../styles/notes.css";
