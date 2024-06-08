@@ -14,11 +14,15 @@ const PrivateNotesPage = () => {
     setRefreshComponent((prev) => !prev);
   }
 
+  function refresh() {
+    setRefreshComponent((prev) => !prev);
+  }
+
   async function duplicateCard(messageid) {
     const { body } = await getMessage(messageid);
     const { newMessage, id } = createNewMessage(body);
     set(newMessage, id);
-    setRefreshComponent((prev) => !prev);
+    refresh();
   }
 
   async function fetchData(val = null) {
@@ -57,6 +61,7 @@ const PrivateNotesPage = () => {
           messages={messages}
           removeCard={removeCard}
           duplicateCard={duplicateCard}
+          refresh={refresh}
         />
       </div>
     </div>

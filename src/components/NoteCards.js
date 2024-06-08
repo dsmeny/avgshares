@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { updateMessage } from "../utils/crudMessages";
 import { FiEdit2, FiTrash2, FiCopy, FiFilePlus } from "react-icons/fi";
 
-const NoteCards = ({ messages, removeCard, duplicateCard }) => {
+const NoteCards = ({ messages, removeCard, duplicateCard, refresh }) => {
   return (
     <ul className="notes_cards">
       {messages.map((message) => (
@@ -11,13 +11,14 @@ const NoteCards = ({ messages, removeCard, duplicateCard }) => {
           message={message}
           removeCard={removeCard}
           duplicateCard={duplicateCard}
+          refresh={refresh}
         />
       ))}
     </ul>
   );
 };
 
-function NoteCard({ message, removeCard, duplicateCard }) {
+function NoteCard({ message, removeCard, duplicateCard, refresh }) {
   const [label, setLabel] = useState("");
   const [isReadOnly, setIsReadOnly] = useState(true);
   const { id, header, createdOn, body } = message;
@@ -26,6 +27,14 @@ function NoteCard({ message, removeCard, duplicateCard }) {
 
   function deleteHandler() {
     removeCard(id);
+  }
+
+  async function copyCardHandler() {
+    if (header !== "") {
+      await navigator.clipboard.writeText(`${header}. ${body}`);
+      return;
+    }
+    await navigator.clipboard.writeText(body);
   }
 
   function duplicateCardHandler() {
@@ -42,6 +51,7 @@ function NoteCard({ message, removeCard, duplicateCard }) {
 
     if (label === "") {
       setLabel(header);
+      refresh();
     }
   }, [isReadOnly]);
 
@@ -66,6 +76,7 @@ function NoteCard({ message, removeCard, duplicateCard }) {
       updateMessage(id, labelVal);
       setLabel(labelVal);
       setIsReadOnly(true);
+      refresh();
     }
   }
 
@@ -90,7 +101,7 @@ function NoteCard({ message, removeCard, duplicateCard }) {
         </div>
         <div className="notes_card_btns">
           <FiTrash2 className="notes_card_icons" onClick={deleteHandler} />
-          <FiCopy className="notes_card_icons" />
+          <FiCopy className="notes_card_icons" onClick={copyCardHandler} />
           <FiFilePlus
             className="notes_card_icons"
             onClick={duplicateCardHandler}
