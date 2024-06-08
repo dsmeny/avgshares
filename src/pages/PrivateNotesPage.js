@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { values, set, del } from "../utils/_idbMessages";
-import { createNewMessage, getMessage } from "../utils/messagesUtil";
+import { values } from "../utils/_idbMessages";
+import { duplicateCard, createCard, deleteCard } from "../utils/messagesUtil";
 import NoteCards from "../components/NoteCards";
 import NotesForm from "../components/NotesForm";
 import "../styles/notes.css";
@@ -9,20 +9,8 @@ const PrivateNotesPage = () => {
   const [messages, setMessages] = useState([]);
   const [refreshComponent, setRefreshComponent] = useState(false);
 
-  async function removeCard(messageid) {
-    del(messageid);
-    setRefreshComponent((prev) => !prev);
-  }
-
   function refresh() {
     setRefreshComponent((prev) => !prev);
-  }
-
-  async function duplicateCard(messageid) {
-    const { body } = await getMessage(messageid);
-    const { newMessage, id } = createNewMessage(body);
-    set(newMessage, id);
-    refresh();
   }
 
   async function fetchData(val = null) {
@@ -43,10 +31,7 @@ const PrivateNotesPage = () => {
     const target = e.target;
     const value = target[0].value;
 
-    const { newMessage, id } = createNewMessage(value);
-
-    set(newMessage, id);
-    fetchData(newMessage);
+    createCard(value, fetchData);
   }
 
   useEffect(() => {
@@ -59,8 +44,14 @@ const PrivateNotesPage = () => {
       <div className="notes_container_cards">
         <NoteCards
           messages={messages}
-          removeCard={removeCard}
-          duplicateCard={duplicateCard}
+          removeCard={(id) => {
+            deleteCard(id);
+            refresh();
+          }}
+          duplicateCard={(id) => {
+            duplicateCard(id);
+            refresh();
+          }}
           refresh={refresh}
         />
       </div>

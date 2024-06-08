@@ -24,6 +24,7 @@ function NoteCard({ message, removeCard, duplicateCard, refresh }) {
   const { id, header, createdOn, body } = message;
 
   const inputRef = useRef();
+  const input = inputRef.current;
 
   function deleteHandler() {
     removeCard(id);
@@ -39,28 +40,29 @@ function NoteCard({ message, removeCard, duplicateCard, refresh }) {
   }
 
   function editLabel() {
+    const inputValue = input.value;
+
     if (isReadOnly === true) {
       setIsReadOnly(false);
       return;
     } else {
-      const labelVal = captureInputToUpdate(id, inputRef);
-      setLabel(labelVal);
+      captureInputToUpdate(id, inputValue);
+      setLabel(inputValue);
       setIsReadOnly(true);
     }
   }
 
   function updateTitle(e) {
     if (e.keyCode === 13) {
-      const labelVal = captureInputToUpdate(id, inputRef);
-      setLabel(labelVal);
+      const inputValue = input.value;
+      captureInputToUpdate(id, inputValue);
+      setLabel(inputValue);
       setIsReadOnly(true);
       refresh();
     }
   }
 
   useEffect(() => {
-    const input = inputRef.current;
-
     if (isReadOnly === false) {
       input.focus();
       return;
@@ -76,37 +78,69 @@ function NoteCard({ message, removeCard, duplicateCard, refresh }) {
     <li className="notes_card">
       <div className="notes_card_header">
         <div className="notes_card_label">
-          <input
-            type="text"
-            className={`${isReadOnly ? "" : "notes_card_focus"}`}
-            readOnly={isReadOnly}
-            placeholder="create a title"
-            onChange={changeHandler}
-            value={label}
-            onKeyUp={updateTitle}
-            ref={inputRef}
+          <NoteCardInput
+            isReadOnly={isReadOnly}
+            changeHandler={changeHandler}
+            label={label}
+            updateTitle={updateTitle}
+            inputRef={inputRef}
           />
           <FiEdit2
             onClick={editLabel}
             className={`notes_card_icons ${isReadOnly ? "" : "active"}`}
           />
         </div>
-        <div className="notes_card_btns">
-          <FiTrash2 className="notes_card_icons" onClick={deleteHandler} />
-          <FiCopy
-            className="notes_card_icons"
-            onClick={() => copyCardHandler(header, body)}
-          />
-          <FiFilePlus
-            className="notes_card_icons"
-            onClick={duplicateCardHandler}
-          />
-        </div>
+        <EditButtons
+          deleteHandler={deleteHandler}
+          header={header}
+          body={body}
+          duplicateCardHandler={duplicateCardHandler}
+        />
       </div>
-      <div className="notes_card_message">
-        <p>{`${createdOn}: ${body}`}</p>
-      </div>
+      <MessageBody createdOn={createdOn} body={body} />
     </li>
+  );
+}
+
+function NoteCardInput({
+  isReadOnly,
+  changeHandler,
+  label,
+  updateTitle,
+  inputRef,
+}) {
+  return (
+    <input
+      type="text"
+      className={`${isReadOnly ? "" : "notes_card_focus"}`}
+      readOnly={isReadOnly}
+      placeholder="create a title"
+      onChange={changeHandler}
+      value={label}
+      onKeyUp={updateTitle}
+      ref={inputRef}
+    />
+  );
+}
+
+function EditButtons({ deleteHandler, header, body, duplicateCardHandler }) {
+  return (
+    <div className="notes_card_btns">
+      <FiTrash2 className="notes_card_icons" onClick={deleteHandler} />
+      <FiCopy
+        className="notes_card_icons"
+        onClick={() => copyCardHandler(header, body)}
+      />
+      <FiFilePlus className="notes_card_icons" onClick={duplicateCardHandler} />
+    </div>
+  );
+}
+
+function MessageBody({ createdOn, body }) {
+  return (
+    <div className="notes_card_message">
+      <p>{`${createdOn}: ${body}`}</p>
+    </div>
   );
 }
 

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { get, put } from "./_idbMessages";
+import { get, put, set, del } from "./_idbMessages";
 
 export const createNewMessage = (value) => {
   const id = uuidv4();
@@ -36,8 +36,22 @@ export const copyCardHandler = async (header, body) => {
   await navigator.clipboard.writeText(body);
 };
 
-export const captureInputToUpdate = (id, ref) => {
-  const labelVal = ref.current.value;
-  updateMessage(id, labelVal);
-  return labelVal;
+export const captureInputToUpdate = (id, input) => {
+  updateMessage(id, input);
+};
+
+export const deleteCard = (messageid) => {
+  del(messageid);
+};
+
+export const duplicateCard = async (messageid) => {
+  const { body } = await getMessage(messageid);
+  const { newMessage, id } = createNewMessage(body);
+  set(newMessage, id);
+};
+
+export const createCard = (value, fetchData) => {
+  const { newMessage, id } = createNewMessage(value);
+  set(newMessage, id);
+  fetchData(newMessage);
 };
