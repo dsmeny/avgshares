@@ -88,7 +88,7 @@ function NoteCard({ message, removeCard, duplicateCard, refresh }) {
             type="text"
             className={`${isReadOnly ? "" : "notes_card_focus"}`}
             readOnly={isReadOnly}
-            placeholder="enter a label"
+            placeholder="create a title"
             onChange={changeHandler}
             value={label}
             onKeyUp={updateMessageHandler}

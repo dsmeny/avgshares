@@ -77,6 +77,11 @@
 .notes_card_icons {
   font-size: 1.1rem;
   color: var(--bg-color);
+  transition: 0.4ms ease-in-out;
+}
+
+.notes_card_icons:hover {
+  color: var(--active);
 }
 
 .active {
