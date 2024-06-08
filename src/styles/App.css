@@ -14,7 +14,8 @@ input[type="number"] {
   --title-color: #ff9800;
   --subtitle-color: #1e90ff;
   --header-color: #5b5b5b;
-  --bg-color: #fcfcfc;
+  --bg-color: #fdfdfd;
+  --alt-bg-color: #fcfcf3;
   --shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
   --active: #5ee411;
 }
