@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { values, set, del } from "../utils/_idbMessages";
-import { v4 as uuidv4 } from "uuid";
+import { createNewMessage, getMessage } from "../utils/crudMessages";
 import NoteCards from "../components/NoteCards";
 import NotesForm from "../components/NotesForm";
 import "../styles/notes.css";
@@ -13,6 +13,10 @@ const PrivateNotesPage = () => {
   async function removeCard(messageid) {
     setKey(messageid);
     setDeleteCard(true);
+  }
+
+  function copyCard(messageid) {
+    const message = getMessage(messageid);
   }
 
   async function fetchData(val = null) {
@@ -32,17 +36,11 @@ const PrivateNotesPage = () => {
 
     const target = e.target;
     const value = target[0].value;
-    const date = new Date();
-    const id = uuidv4();
-    const newValue = JSON.stringify({
-      id,
-      header: "",
-      body: `${date.toLocaleString()}: ${value}`,
-    });
 
-    set(newValue, id);
+    const { newMessage, id } = createNewMessage(value);
 
-    fetchData(newValue);
+    set(newMessage, id);
+    fetchData(newMessage);
   }
 
   useEffect(() => {

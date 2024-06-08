@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { put, get } from "../utils/_idbMessages";
+import { getMessage } from "../utils/crudMessages";
+import { put } from "../utils/_idbMessages";
 import { FiEdit2, FiTrash2, FiCopy, FiFilePlus } from "react-icons/fi";
 
 const NoteCards = ({ messages, removeCard }) => {
@@ -15,7 +16,7 @@ const NoteCards = ({ messages, removeCard }) => {
 function NoteCard({ message, removeCard }) {
   const [label, setLabel] = useState("");
   const [isReadOnly, setIsReadOnly] = useState(true);
-  const { id, header, body } = message;
+  const { id, header, createdOn, body } = message;
 
   const inputRef = useRef();
 
@@ -50,12 +51,12 @@ function NoteCard({ message, removeCard }) {
     setLabel(value);
   }
 
-  async function eventHandler(e) {
+  async function updateMessage(e) {
     if (e.keyCode === 13) {
       const labelVal = inputRef.current.value;
 
-      const matchedIdbRecord = await get(id);
-      const message = JSON.parse(matchedIdbRecord);
+      const message = await getMessage(id);
+      console.log("message: ", message);
       message.header = labelVal;
 
       put(JSON.stringify(message), id);
@@ -75,7 +76,7 @@ function NoteCard({ message, removeCard }) {
             placeholder="enter a label"
             onChange={changeHandler}
             value={label}
-            onKeyUp={eventHandler}
+            onKeyUp={updateMessage}
             ref={inputRef}
           />
           <FiEdit2
@@ -90,7 +91,7 @@ function NoteCard({ message, removeCard }) {
         </div>
       </div>
       <div className="notes_card_message">
-        <p>{body}</p>
+        <p>{`${createdOn}: ${body}`}</p>
       </div>
     </li>
   );
