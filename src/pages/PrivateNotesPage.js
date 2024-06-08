@@ -8,6 +8,7 @@ import "../styles/notes.css";
 const PrivateNotesPage = () => {
   const [messages, setMessages] = useState([]);
   const [deleteCard, setDeleteCard] = useState(false);
+  const [refreshComponent, setRefreshComponent] = useState(false);
   const [key, setKey] = useState("");
 
   async function removeCard(messageid) {
@@ -15,8 +16,11 @@ const PrivateNotesPage = () => {
     setDeleteCard(true);
   }
 
-  function copyCard(messageid) {
-    const message = getMessage(messageid);
+  async function duplicateCard(messageid) {
+    const { body } = await getMessage(messageid);
+    const { newMessage, id } = createNewMessage(body);
+    set(newMessage, id);
+    setRefreshComponent((prev) => !prev);
   }
 
   async function fetchData(val = null) {
@@ -49,13 +53,17 @@ const PrivateNotesPage = () => {
       setDeleteCard(false);
     }
     fetchData();
-  }, [deleteCard]);
+  }, [deleteCard, refreshComponent]);
 
   return (
     <div className="container notes_container">
       <NotesForm submitHandler={submitHandler} />
       <div className="notes_container_cards">
-        <NoteCards messages={messages} removeCard={removeCard} />
+        <NoteCards
+          messages={messages}
+          removeCard={removeCard}
+          duplicateCard={duplicateCard}
+        />
       </div>
     </div>
   );

@@ -1,19 +1,23 @@
 import { useState, useEffect, useRef } from "react";
-import { getMessage } from "../utils/crudMessages";
-import { put } from "../utils/_idbMessages";
+import { updateMessage } from "../utils/crudMessages";
 import { FiEdit2, FiTrash2, FiCopy, FiFilePlus } from "react-icons/fi";
 
-const NoteCards = ({ messages, removeCard }) => {
+const NoteCards = ({ messages, removeCard, duplicateCard }) => {
   return (
     <ul className="notes_cards">
       {messages.map((message) => (
-        <NoteCard key={message.id} message={message} removeCard={removeCard} />
+        <NoteCard
+          key={message.id}
+          message={message}
+          removeCard={removeCard}
+          duplicateCard={duplicateCard}
+        />
       ))}
     </ul>
   );
 };
 
-function NoteCard({ message, removeCard }) {
+function NoteCard({ message, removeCard, duplicateCard }) {
   const [label, setLabel] = useState("");
   const [isReadOnly, setIsReadOnly] = useState(true);
   const { id, header, createdOn, body } = message;
@@ -22,6 +26,10 @@ function NoteCard({ message, removeCard }) {
 
   function deleteHandler() {
     removeCard(id);
+  }
+
+  function duplicateCardHandler() {
+    duplicateCard(id);
   }
 
   useEffect(() => {
@@ -51,15 +59,11 @@ function NoteCard({ message, removeCard }) {
     setLabel(value);
   }
 
-  async function updateMessage(e) {
+  async function updateMessageHandler(e) {
     if (e.keyCode === 13) {
       const labelVal = inputRef.current.value;
 
-      const message = await getMessage(id);
-      console.log("message: ", message);
-      message.header = labelVal;
-
-      put(JSON.stringify(message), id);
+      updateMessage(id, labelVal);
       setLabel(labelVal);
       setIsReadOnly(true);
     }
@@ -76,7 +80,7 @@ function NoteCard({ message, removeCard }) {
             placeholder="enter a label"
             onChange={changeHandler}
             value={label}
-            onKeyUp={updateMessage}
+            onKeyUp={updateMessageHandler}
             ref={inputRef}
           />
           <FiEdit2
@@ -87,7 +91,10 @@ function NoteCard({ message, removeCard }) {
         <div className="notes_card_btns">
           <FiTrash2 className="notes_card_icons" onClick={deleteHandler} />
           <FiCopy className="notes_card_icons" />
-          <FiFilePlus className="notes_card_icons" />
+          <FiFilePlus
+            className="notes_card_icons"
+            onClick={duplicateCardHandler}
+          />
         </div>
       </div>
       <div className="notes_card_message">
