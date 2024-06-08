@@ -32,6 +32,7 @@
   overflow: hidden;
   background-color: var(--bg-color);
   box-shadow: var(--shadow);
+  max-width: 300px;
 }
 
 .notes_card_header {

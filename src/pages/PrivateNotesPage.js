@@ -1,23 +1,30 @@
 import { useEffect, useState } from "react";
-import { values, set } from "../utils/_idbMessages";
+import { values, set, del } from "../utils/_idbMessages";
 import { v4 as uuidv4 } from "uuid";
 import NoteCards from "../components/NoteCards";
 import NotesForm from "../components/NotesForm";
 import "../styles/notes.css";
 
 const PrivateNotesPage = () => {
-  const [db, setDb] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [deleteCard, setDeleteCard] = useState(false);
+  const [key, setKey] = useState("");
+
+  async function removeCard(messageid) {
+    setKey(messageid);
+    setDeleteCard(true);
+  }
 
   async function fetchData(val = null) {
     const data = await values();
 
     if (val) {
-      setDb((prev) => [...prev, JSON.parse(val)]);
+      setMessages((prev) => [...prev, JSON.parse(val)]);
       return;
     }
 
     const parsedMessages = data.map((message) => JSON.parse(message));
-    setDb(parsedMessages);
+    setMessages(parsedMessages);
   }
 
   function submitHandler(e) {
@@ -39,14 +46,18 @@ const PrivateNotesPage = () => {
   }
 
   useEffect(() => {
+    if (deleteCard) {
+      del(key);
+      setDeleteCard(false);
+    }
     fetchData();
-  }, []);
+  }, [deleteCard]);
 
   return (
     <div className="container notes_container">
       <NotesForm submitHandler={submitHandler} />
       <div className="notes_container_cards">
-        <NoteCards db={db} />
+        <NoteCards messages={messages} removeCard={removeCard} />
       </div>
     </div>
   );
