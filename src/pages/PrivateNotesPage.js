@@ -7,13 +7,11 @@ import "../styles/notes.css";
 
 const PrivateNotesPage = () => {
   const [messages, setMessages] = useState([]);
-  const [deleteCard, setDeleteCard] = useState(false);
   const [refreshComponent, setRefreshComponent] = useState(false);
-  const [key, setKey] = useState("");
 
   async function removeCard(messageid) {
-    setKey(messageid);
-    setDeleteCard(true);
+    del(messageid);
+    setRefreshComponent((prev) => !prev);
   }
 
   async function duplicateCard(messageid) {
@@ -48,12 +46,8 @@ const PrivateNotesPage = () => {
   }
 
   useEffect(() => {
-    if (deleteCard) {
-      del(key);
-      setDeleteCard(false);
-    }
     fetchData();
-  }, [deleteCard, refreshComponent]);
+  }, [refreshComponent]);
 
   return (
     <div className="container notes_container">
