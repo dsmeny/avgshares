@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { values } from "../utils/_idbMessages";
 import { duplicateCard, createCard, deleteCard } from "../utils/messagesUtil";
 import NoteCards from "../components/NoteCards";
@@ -8,6 +8,8 @@ import "../styles/notes.css";
 const PrivateNotesPage = () => {
   const [messages, setMessages] = useState([]);
   const [refreshComponent, setRefreshComponent] = useState(false);
+
+  const notesFormRef = useRef();
 
   function refresh() {
     setRefreshComponent((prev) => !prev);
@@ -32,15 +34,18 @@ const PrivateNotesPage = () => {
     const value = target[0].value;
 
     createCard(value, fetchData);
+    notesFormRef.current.value = "";
+    notesFormRef.current.focus();
   }
 
   useEffect(() => {
     fetchData();
+    notesFormRef.current.focus();
   }, [refreshComponent]);
 
   return (
     <div className="container notes_container">
-      <NotesForm submitHandler={submitHandler} />
+      <NotesForm submitHandler={submitHandler} notesFormRef={notesFormRef} />
       <div className="notes_container_cards">
         <NoteCards
           messages={messages}
@@ -49,7 +54,7 @@ const PrivateNotesPage = () => {
             refresh();
           }}
           duplicateCard={(id) => {
-            duplicateCard(id);
+            duplicateCard(id, fetchData);
             refresh();
           }}
           refresh={refresh}

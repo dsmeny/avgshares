@@ -32,6 +32,7 @@ function NoteCard({ message, removeCard, duplicateCard, refresh }) {
 
   function duplicateCardHandler() {
     duplicateCard(id);
+    refresh();
   }
 
   function changeHandler(e) {

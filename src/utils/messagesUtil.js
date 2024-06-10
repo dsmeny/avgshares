@@ -44,10 +44,11 @@ export const deleteCard = (messageid) => {
   del(messageid);
 };
 
-export const duplicateCard = async (messageid) => {
+export const duplicateCard = async (messageid, fetchData) => {
   const { body } = await getMessage(messageid);
   const { newMessage, id } = createNewMessage(body);
   set(newMessage, id);
+  fetchData(newMessage);
 };
 
 export const createCard = (value, fetchData) => {
