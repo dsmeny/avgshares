@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { values } from "../utils/_idbMessages";
 import { duplicateCard, createCard, deleteCard } from "../utils/messagesUtil";
-import { LuListFilter } from "react-icons/lu";
+import { LuListFilter, LuX } from "react-icons/lu";
 import NoteCards from "../components/NoteCards";
 import NotesForm from "../components/NotesForm";
 import "../styles/notes.css";
@@ -62,7 +62,7 @@ const PrivateNotesPage = () => {
         )}
         <NotesForm submitHandler={submitHandler} notesFormRef={notesFormRef} />
         <div className="notes_filter">
-          <span>Sort by date created</span>
+          <span>What comes first?</span>
           <LuListFilter onClick={showCardFilterHandler} />
         </div>
       </div>
@@ -92,9 +92,10 @@ function CardFilter({ filterRef, showCardFilterHandler }) {
   return (
     <div className="container_filter">
       <select ref={filterRef} onChange={changeHandler}>
-        <option>last ⬆</option>
-        <option>first ⬇</option>
+        <option>newest</option>
+        <option>oldest</option>
       </select>
+      <LuX onClick={changeHandler} />
     </div>
   );
 }

@@ -20,14 +20,20 @@
   right: 0px;
   top: -20px;
   z-index: 9999;
-}
-
-.container_filter select {
   background-color: var(--bg-color);
   box-shadow: var(--shadow);
   border-radius: 10px;
   padding: 10px;
   border: none;
+  display: flex;
+  align-items: center;
+  width: 100px;
+  justify-content: space-between;
+}
+
+.container_filter select {
+  border: none;
+  background-color: none;
 }
 
 .notes_filter {
