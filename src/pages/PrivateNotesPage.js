@@ -1,15 +1,21 @@
 import { useEffect, useState, useRef } from "react";
 import { values } from "../utils/_idbMessages";
 import { duplicateCard, createCard, deleteCard } from "../utils/messagesUtil";
-import { LuListFilter, LuX } from "react-icons/lu";
+import { updateLocalStorage, getLocalStorage } from "../utils/localStorage";
+import { optionValues } from "../utils/enums";
+import { LuListFilter } from "react-icons/lu";
 import NoteCards from "../components/NoteCards";
 import NotesForm from "../components/NotesForm";
+import CardFilter from "../components/CardFilter";
 import "../styles/notes.css";
+
+const { NEWEST } = optionValues;
 
 const PrivateNotesPage = () => {
   const [messages, setMessages] = useState([]);
   const [refreshComponent, setRefreshComponent] = useState(false);
   const [showCardFilter, setShowCardFilter] = useState(false);
+  const [selected, setSelected] = useState("");
 
   const notesFormRef = useRef();
   const filterRef = useRef();
@@ -18,8 +24,13 @@ const PrivateNotesPage = () => {
     setRefreshComponent((prev) => !prev);
   }
 
-  function showCardFilterHandler() {
+  function toggleCardFilter() {
     setShowCardFilter((prev) => !prev);
+  }
+
+  function selectedOption(value) {
+    setSelected(value);
+    updateLocalStorage(value);
   }
 
   async function fetchData(val = null) {
@@ -46,9 +57,15 @@ const PrivateNotesPage = () => {
   }
 
   useEffect(() => {
+    toggleCardFilter();
     fetchData();
     notesFormRef.current.focus();
-  }, [refreshComponent]);
+  }, [refreshComponent, selected]);
+
+  useEffect(() => {
+    const localStore = getLocalStorage();
+    setSelected(localStore ? localStore : NEWEST);
+  }, []);
 
   return (
     <div className="container notes_container">
@@ -56,14 +73,15 @@ const PrivateNotesPage = () => {
         {showCardFilter && (
           <CardFilter
             filterRef={filterRef}
-            showCardFilter={showCardFilter}
-            showCardFilterHandler={showCardFilterHandler}
+            selectedOption={selectedOption}
+            toggleCardFilter={toggleCardFilter}
+            selected={selected}
           />
         )}
         <NotesForm submitHandler={submitHandler} notesFormRef={notesFormRef} />
-        <div className="notes_filter">
+        <div className="notes_filter" onClick={toggleCardFilter}>
           <span>What comes first?</span>
-          <LuListFilter onClick={showCardFilterHandler} />
+          <LuListFilter />
         </div>
       </div>
       <div className="notes_container_cards">
@@ -84,19 +102,4 @@ const PrivateNotesPage = () => {
   );
 };
 
-function CardFilter({ filterRef, showCardFilterHandler }) {
-  function changeHandler() {
-    showCardFilterHandler();
-  }
-
-  return (
-    <div className="container_filter">
-      <select ref={filterRef} onChange={changeHandler}>
-        <option>newest</option>
-        <option>oldest</option>
-      </select>
-      <LuX onClick={changeHandler} />
-    </div>
-  );
-}
 export default PrivateNotesPage;

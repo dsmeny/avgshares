@@ -41,16 +41,16 @@ function NoteCard({ message, removeCard, duplicateCard, refresh }) {
   }
 
   function editLabel() {
-    const inputValue = input.value;
-
     if (isReadOnly === true) {
       setIsReadOnly(false);
       return;
-    } else {
+    } else if (input.value) {
+      const inputValue = input.value;
       captureInputToUpdate(id, inputValue);
       setLabel(inputValue);
       setIsReadOnly(true);
     }
+    setIsReadOnly(true);
   }
 
   function updateTitle(e) {
