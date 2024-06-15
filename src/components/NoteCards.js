@@ -48,7 +48,6 @@ function NoteCard({ message, removeCard, duplicateCard, refresh }) {
       const inputValue = input.value;
       captureInputToUpdate(id, inputValue);
       setLabel(inputValue);
-      setIsReadOnly(true);
     }
     setIsReadOnly(true);
   }
