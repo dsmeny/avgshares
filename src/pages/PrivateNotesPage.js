@@ -36,7 +36,7 @@ const PrivateNotesPage = () => {
           />
         )}
         <NotesForm submitHandler={submitHandler} notesFormRef={notesFormRef} />
-        <Filter toggleCardFilter={toggleCardFilter} />
+        {/* <Filter toggleCardFilter={toggleCardFilter} /> */}
       </div>
       <div className="notes_container_cards">
         <NoteCards
