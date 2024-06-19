@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { filterContext } from "../contexts/FilterContext";
 import useFilter from "../hooks/useFilter";
 import useNotes from "../hooks/useNotes";
 import { duplicateCard, deleteCard } from "../utils/messagesUtil";
@@ -11,9 +12,10 @@ import "../styles/notes.css";
 const PrivateNotesPage = () => {
   const { functionsFilter, statesFilter, refsFilter } = useFilter();
   const { functionsNotes, statesNotes, refsNotes } = useNotes();
+  const { filterOption } = useContext(filterContext);
 
   const { refresh, toggleCardFilter, selectedOption } = functionsFilter;
-  const { refreshComponent, showCardFilter, element } = statesFilter;
+  const { refreshComponent, showCardFilter } = statesFilter;
   const { filterRef } = refsFilter;
 
   const { fetchData, submitHandler, updateAndFetchData } = functionsNotes;
@@ -22,7 +24,7 @@ const PrivateNotesPage = () => {
 
   useEffect(() => {
     updateAndFetchData();
-  }, [refreshComponent]);
+  }, [refreshComponent, filterOption]);
 
   return (
     <div className="container notes_container">
@@ -32,11 +34,11 @@ const PrivateNotesPage = () => {
             filterRef={filterRef}
             selectedOption={selectedOption}
             toggleCardFilter={toggleCardFilter}
-            element={element}
+            filterOption={filterOption}
           />
         )}
         <NotesForm submitHandler={submitHandler} notesFormRef={notesFormRef} />
-        {/* <Filter toggleCardFilter={toggleCardFilter} /> */}
+        <Filter toggleCardFilter={toggleCardFilter} />
       </div>
       <div className="notes_container_cards">
         <NoteCards

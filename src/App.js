@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { FilterContextProvider } from "./contexts/FilterContext";
 import CalcAvgPage from "./pages/CalcAvgPage";
 import WelcomePage from "./pages/WelcomePage";
 import Sidebar from "./components/Sidebar";
@@ -27,7 +28,14 @@ function App() {
           <Route path="/" element={<WelcomePage />} />
           <Route path="/avg" element={<CalcAvgPage />} />
           <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/private-notes" element={<PrivateNotesPage />} />
+          <Route
+            path="/private-notes"
+            element={
+              <FilterContextProvider>
+                <PrivateNotesPage />
+              </FilterContextProvider>
+            }
+          />
         </Routes>
       </Router>
     </div>

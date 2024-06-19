@@ -1,10 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { updateLocalStorage } from "../utils/localStorage";
+import { filterContext } from "../contexts/FilterContext";
 
 function useFilter() {
   const [refreshComponent, setRefreshComponent] = useState(false);
   const [showCardFilter, setShowCardFilter] = useState(false);
-  const [element, setElement] = useState("");
+  const { setFilterOption } = useContext(filterContext);
 
   const filterRef = useRef();
 
@@ -17,7 +18,7 @@ function useFilter() {
   }
 
   function selectedOption(value) {
-    setElement(value);
+    setFilterOption(value);
     updateLocalStorage(value);
     toggleCardFilter();
   }
@@ -26,13 +27,11 @@ function useFilter() {
     refresh,
     toggleCardFilter,
     selectedOption,
-    setElement,
   };
 
   const statesFilter = {
     refreshComponent,
     showCardFilter,
-    element,
   };
 
   const refsFilter = {

@@ -2,7 +2,12 @@ import { useEffect } from "react";
 import { LuX } from "react-icons/lu";
 import { optionValues } from "../utils/enums";
 
-function CardFilter({ filterRef, selectedOption, toggleCardFilter, element }) {
+function CardFilter({
+  filterRef,
+  selectedOption,
+  toggleCardFilter,
+  filterOption,
+}) {
   const { NEWEST, OLDEST } = optionValues;
 
   function changeHandler() {
@@ -15,12 +20,12 @@ function CardFilter({ filterRef, selectedOption, toggleCardFilter, element }) {
     const selectFilter = filterRef.current;
     if (selectFilter) {
       [...selectFilter.options].forEach((option) => {
-        if (option.value === element) {
+        if (option.value === filterOption) {
           option.selected = true;
         }
       });
     }
-  }, [element]);
+  }, [filterOption]);
 
   return (
     <div className="container_filter">
