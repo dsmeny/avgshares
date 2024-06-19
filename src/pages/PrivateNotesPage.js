@@ -1,67 +1,28 @@
-import { useEffect, useState, useRef } from "react";
-import { values } from "../utils/_idbMessages";
-import { duplicateCard, createCard, deleteCard } from "../utils/messagesUtil";
-import { updateLocalStorage, getLocalStorage } from "../utils/localStorage";
-import { optionValues } from "../utils/enums";
-import { LuListFilter } from "react-icons/lu";
+import { useEffect } from "react";
+import useFilter from "../hooks/useFilter";
+import { duplicateCard, deleteCard } from "../utils/messagesUtil";
 import NoteCards from "../components/NoteCards";
 import NotesForm from "../components/NotesForm";
 import CardFilter from "../components/CardFilter";
+import Filter from "../components/Filter";
 import "../styles/notes.css";
 
-const { NEWEST } = optionValues;
-
 const PrivateNotesPage = () => {
-  const [messages, setMessages] = useState([]);
-  const [refreshComponent, setRefreshComponent] = useState(false);
-  const [showCardFilter, setShowCardFilter] = useState(false);
-  const [element, setElement] = useState("");
+  const { functions, state, refs } = useFilter();
 
-  const notesFormRef = useRef();
-  const filterRef = useRef();
-
-  function refresh() {
-    setRefreshComponent((prev) => !prev);
-  }
-
-  function toggleCardFilter() {
-    setShowCardFilter((prev) => !prev);
-  }
-
-  function selectedOption(value) {
-    setElement(value);
-    updateLocalStorage(value);
-    toggleCardFilter();
-  }
-
-  async function fetchData(val = null) {
-    const data = await values();
-
-    if (val) {
-      setMessages((prev) => [...prev, JSON.parse(val)]);
-      return;
-    }
-
-    const parsedMessages = data.map((message) => JSON.parse(message));
-    setMessages(parsedMessages);
-  }
-
-  function submitHandler(e) {
-    e.preventDefault();
-
-    const target = e.target;
-    const value = target[0].value;
-
-    createCard(value, fetchData);
-    notesFormRef.current.value = "";
-    notesFormRef.current.focus();
-  }
+  const {
+    refresh,
+    toggleCardFilter,
+    selectedOption,
+    fetchData,
+    submitHandler,
+    updateAndFetchData,
+  } = functions;
+  const { refreshComponent, showCardFilter, element, messages } = state;
+  const { notesFormRef, filterRef } = refs;
 
   useEffect(() => {
-    const localStore = getLocalStorage();
-    setElement(localStore ? localStore : NEWEST);
-    fetchData();
-    notesFormRef.current.focus();
+    updateAndFetchData();
   }, [refreshComponent]);
 
   return (
@@ -76,10 +37,7 @@ const PrivateNotesPage = () => {
           />
         )}
         <NotesForm submitHandler={submitHandler} notesFormRef={notesFormRef} />
-        <div className="notes_filter" onClick={toggleCardFilter}>
-          <span>What comes first?</span>
-          <LuListFilter />
-        </div>
+        <Filter toggleCardFilter={toggleCardFilter} />
       </div>
       <div className="notes_container_cards">
         <NoteCards
