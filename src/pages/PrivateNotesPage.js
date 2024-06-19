@@ -15,7 +15,7 @@ const PrivateNotesPage = () => {
   const [messages, setMessages] = useState([]);
   const [refreshComponent, setRefreshComponent] = useState(false);
   const [showCardFilter, setShowCardFilter] = useState(false);
-  const [selected, setSelected] = useState("");
+  const [element, setElement] = useState("");
 
   const notesFormRef = useRef();
   const filterRef = useRef();
@@ -29,8 +29,9 @@ const PrivateNotesPage = () => {
   }
 
   function selectedOption(value) {
-    setSelected(value);
+    setElement(value);
     updateLocalStorage(value);
+    toggleCardFilter();
   }
 
   async function fetchData(val = null) {
@@ -57,15 +58,11 @@ const PrivateNotesPage = () => {
   }
 
   useEffect(() => {
-    toggleCardFilter();
+    const localStore = getLocalStorage();
+    setElement(localStore ? localStore : NEWEST);
     fetchData();
     notesFormRef.current.focus();
-  }, [refreshComponent, selected]);
-
-  useEffect(() => {
-    const localStore = getLocalStorage();
-    setSelected(localStore ? localStore : NEWEST);
-  }, []);
+  }, [refreshComponent]);
 
   return (
     <div className="container notes_container">
@@ -75,7 +72,7 @@ const PrivateNotesPage = () => {
             filterRef={filterRef}
             selectedOption={selectedOption}
             toggleCardFilter={toggleCardFilter}
-            selected={selected}
+            element={element}
           />
         )}
         <NotesForm submitHandler={submitHandler} notesFormRef={notesFormRef} />
