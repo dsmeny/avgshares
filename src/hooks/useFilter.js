@@ -1,18 +1,11 @@
 import { useState, useRef } from "react";
-import { updateLocalStorage, getLocalStorage } from "../utils/localStorage";
-import { optionValues } from "../utils/enums";
-import { createCard } from "../utils/messagesUtil";
-import { values } from "../utils/_idbMessages";
-
-const { NEWEST } = optionValues;
+import { updateLocalStorage } from "../utils/localStorage";
 
 function useFilter() {
   const [refreshComponent, setRefreshComponent] = useState(false);
   const [showCardFilter, setShowCardFilter] = useState(false);
   const [element, setElement] = useState("");
-  const [messages, setMessages] = useState([]);
 
-  const notesFormRef = useRef();
   const filterRef = useRef();
 
   function refresh() {
@@ -29,58 +22,24 @@ function useFilter() {
     toggleCardFilter();
   }
 
-  async function fetchData(val = null) {
-    const data = await values();
-
-    if (val) {
-      setMessages((prev) => [...prev, JSON.parse(val)]);
-      return;
-    }
-
-    const parsedMessages = data.map((message) => JSON.parse(message));
-    setMessages(parsedMessages);
-  }
-
-  function submitHandler(e) {
-    e.preventDefault();
-
-    const target = e.target;
-    const value = target[0].value;
-
-    createCard(value, fetchData);
-    notesFormRef.current.value = "";
-    notesFormRef.current.focus();
-  }
-
-  function updateAndFetchData() {
-    const localStore = getLocalStorage();
-    setElement(localStore ? localStore : NEWEST);
-    fetchData();
-    notesFormRef.current.focus();
-  }
-
-  const functions = {
+  const functionsFilter = {
     refresh,
     toggleCardFilter,
     selectedOption,
-    fetchData,
-    submitHandler,
-    updateAndFetchData,
+    setElement,
   };
 
-  const state = {
+  const statesFilter = {
     refreshComponent,
     showCardFilter,
     element,
-    messages,
   };
 
-  const refs = {
-    notesFormRef,
+  const refsFilter = {
     filterRef,
   };
 
-  return { functions, state, refs };
+  return { functionsFilter, statesFilter, refsFilter };
 }
 
 export default useFilter;

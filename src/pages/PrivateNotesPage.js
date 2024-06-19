@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import useFilter from "../hooks/useFilter";
+import useNotes from "../hooks/useNotes";
 import { duplicateCard, deleteCard } from "../utils/messagesUtil";
 import NoteCards from "../components/NoteCards";
 import NotesForm from "../components/NotesForm";
@@ -8,18 +9,16 @@ import Filter from "../components/Filter";
 import "../styles/notes.css";
 
 const PrivateNotesPage = () => {
-  const { functions, state, refs } = useFilter();
+  const { functionsFilter, statesFilter, refsFilter } = useFilter();
+  const { functionsNotes, statesNotes, refsNotes } = useNotes();
 
-  const {
-    refresh,
-    toggleCardFilter,
-    selectedOption,
-    fetchData,
-    submitHandler,
-    updateAndFetchData,
-  } = functions;
-  const { refreshComponent, showCardFilter, element, messages } = state;
-  const { notesFormRef, filterRef } = refs;
+  const { refresh, toggleCardFilter, selectedOption } = functionsFilter;
+  const { refreshComponent, showCardFilter, element } = statesFilter;
+  const { filterRef } = refsFilter;
+
+  const { fetchData, submitHandler, updateAndFetchData } = functionsNotes;
+  const { messages } = statesNotes;
+  const { notesFormRef } = refsNotes;
 
   useEffect(() => {
     updateAndFetchData();
